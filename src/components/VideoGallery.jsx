@@ -15,7 +15,7 @@ const VideoCard = ({ video }) => (
         href={video.link} // Direct link to the YouTube video from the feed
         target="_blank"
         rel="noreferrer"
-        className="flex-shrink-0 w-72 h-44 relative rounded-xl overflow-hidden group cursor-pointer shadow-sm border border-slate-200 bg-slate-100"
+        className="flex-shrink-0 w-56 h-36 md:w-72 md:h-44 relative rounded-xl overflow-hidden group cursor-pointer shadow-sm border border-slate-200 bg-slate-100"
     >
         {/* Thumbnail Image */}
         <img
@@ -33,17 +33,17 @@ const VideoCard = ({ video }) => (
 
         {/* Play Icon */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <PlayCircle className="w-12 h-12 text-white fill-white/20" />
+            <PlayCircle className="w-10 h-10 md:w-12 md:h-12 text-white fill-white/20" />
         </div>
 
         {/* Video Info Label */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-slate-900/90 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-2.5 md:p-3 bg-gradient-to-t from-slate-900/90 to-transparent">
             {/* We use dangerouslySetInnerHTML to properly decode HTML entities in the title from RSS */}
             <h4
-                className="text-white text-sm font-semibold truncate leading-tight mb-1"
+                className="text-white text-xs md:text-sm font-semibold truncate leading-tight mb-1"
                 dangerouslySetInnerHTML={{ __html: video.title }}
             />
-            <div className="flex items-center gap-1.5 text-slate-300 text-xs font-medium">
+            <div className="flex items-center gap-1.5 text-slate-300 text-[10px] md:text-xs font-medium">
                 <Youtube className="w-3 h-3 text-red-500" />
                 <span className="truncate">{video.author}</span>
             </div>
@@ -112,11 +112,11 @@ const VideoGallery = () => {
     const duplicatedVideos = [...videos, ...videos, ...videos, ...videos];
 
     return (
-        <section className="py-8 overflow-hidden relative w-full">
+        <section className="py-6 md:py-8 overflow-hidden relative w-full">
 
             {/* Render the container as user-scrollable but hide the scrollbar */}
             <div
-                className="relative flex whitespace-nowrap overflow-x-auto overflow-y-hidden min-h-[11rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="relative flex whitespace-nowrap overflow-x-auto overflow-y-hidden min-h-[9.5rem] md:min-h-[11rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 ref={scrollRef}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
@@ -125,21 +125,21 @@ const VideoGallery = () => {
             >
 
                 {loading ? (
-                    <div className="flex items-center justify-center w-full min-h-[11rem] text-slate-500 absolute inset-0 z-20 bg-transparent">
+                    <div className="flex items-center justify-center w-full min-h-[9.5rem] md:min-h-[11rem] text-slate-500 absolute inset-0 z-20 bg-transparent">
                         <Loader2 className="w-6 h-6 animate-spin mr-2 text-blue-500" />
                         <span className="font-medium text-sm">Loading latest lectures...</span>
                     </div>
                 ) : error ? (
-                    <div className="flex items-center justify-center w-full min-h-[11rem] text-rose-500 absolute inset-0 z-20 bg-transparent rounded-lg mx-auto max-w-lg">
+                    <div className="flex items-center justify-center w-full min-h-[9.5rem] md:min-h-[11rem] text-rose-500 absolute inset-0 z-20 bg-transparent rounded-lg mx-auto max-w-lg">
                         <AlertCircle className="w-5 h-5 mr-2" />
                         <span className="font-medium text-sm">Please update your YouTube Channel ID in the code to display videos here.</span>
                     </div>
                 ) : videos.length === 0 ? (
-                    <div className="flex items-center justify-center w-full min-h-[11rem] text-slate-500 absolute inset-0 z-20 bg-transparent">
+                    <div className="flex items-center justify-center w-full min-h-[9.5rem] md:min-h-[11rem] text-slate-500 absolute inset-0 z-20 bg-transparent">
                         <span className="font-medium text-sm">No videos found. Check your Channel ID.</span>
                     </div>
                 ) : (
-                    <div className="flex gap-4 items-center px-4 w-max">
+                    <div className="flex gap-3 md:gap-4 items-center px-3 md:px-4 w-max">
                         {duplicatedVideos.map((video, index) => (
                             <VideoCard key={`${video.guid}-${index}`} video={video} />
                         ))}
@@ -147,9 +147,9 @@ const VideoGallery = () => {
                 )}
             </div>
 
-            <div className="text-center mt-4">
-                <span className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    <Youtube className="w-4 h-4 text-red-500" /> Catch Our Latest Lectures on YouTube
+            <div className="text-center mt-3 md:mt-4">
+                <span className="inline-flex items-center gap-2 text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    <Youtube className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-500" /> Catch Our Latest Lectures on YouTube
                 </span>
             </div>
         </section>

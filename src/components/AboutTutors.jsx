@@ -16,11 +16,11 @@ const TutorSection = ({
     reverseLayout = false
 }) => {
     return (
-        <div className={`flex flex-col ${reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-16 items-center`}>
+        <div className={`flex flex-col ${reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-16 items-center`}>
             {/* Image/Visual Column */}
             <div className="w-full lg:w-5/12 relative">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-sky-200 to-yellow-200 rounded-3xl blur-lg opacity-40"></div>
-                <div className="relative bg-white p-2 rounded-2xl shadow-xl border border-blue-100">
+                <div className="relative bg-white p-1.5 md:p-2 rounded-2xl shadow-xl border border-blue-100">
                     <div className="aspect-[4/5] bg-slate-100 rounded-xl overflow-hidden relative group shadow-inner">
                         <img
                             src={image}
@@ -35,8 +35,8 @@ const TutorSection = ({
                     </div>
 
                     {/* Floating Badge */}
-                    <div className={`absolute -bottom-6 ${reverseLayout ? '-left-6' : '-right-6'} bg-yellow-400 text-blue-900 px-6 py-4 rounded-xl shadow-lg font-bold flex items-center gap-3 transform ${reverseLayout ? '-rotate-3 hover:rotate-0' : 'rotate-3 hover:rotate-0'} transition-transform cursor-default border border-yellow-300`}>
-                        <BadgeIcon className="w-6 h-6" />
+                    <div className={`absolute -bottom-4 md:-bottom-6 ${reverseLayout ? '-left-2 md:-left-6' : '-right-2 md:-right-6'} bg-yellow-400 text-blue-900 px-3 md:px-6 py-2 md:py-4 rounded-xl shadow-lg font-bold text-sm md:text-base flex items-center gap-2 md:gap-3 transform ${reverseLayout ? '-rotate-3 hover:rotate-0' : 'rotate-3 hover:rotate-0'} transition-transform cursor-default border border-yellow-300`}>
+                        <BadgeIcon className="w-4 h-4 md:w-6 md:h-6" />
                         {badgeText}
                     </div>
                 </div>
@@ -44,23 +44,23 @@ const TutorSection = ({
 
             {/* Content Column */}
             <div className="w-full lg:w-7/12">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full text-blue-600 font-bold text-sm tracking-wide uppercase mb-6">
-                    <BookOpenCheck className="w-4 h-4" />
-                    Meet {name} <span className="text-blue-400 mx-1">•</span> <span className="text-slate-600 font-medium capitalize">{role}</span>
+                <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-blue-50 border border-blue-100 rounded-full text-blue-600 font-bold text-xs md:text-sm tracking-wide uppercase mb-4 md:mb-6 flex-wrap">
+                    <BookOpenCheck className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                    Meet {name} <span className="text-blue-400 mx-0.5 md:mx-1">•</span> <span className="text-slate-600 font-medium capitalize">{role}</span>
                 </div>
 
-                <h2 className="text-3xl md:text-5xl font-extrabold text-slate-800 mb-8 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-800 mb-5 md:mb-8 leading-tight">
                     {titlePrefix} <span className="text-blue-600 relative inline-block">
                         {titleHighlight}
-                        <span className="absolute bottom-2 left-0 w-full h-3 bg-yellow-200 -z-10 rounded-full"></span>
+                        <span className="absolute bottom-1 md:bottom-2 left-0 w-full h-2 md:h-3 bg-yellow-200 -z-10 rounded-full"></span>
                     </span> {titleSuffix}
                 </h2>
 
-                <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
+                <div className="space-y-4 md:space-y-6 text-base md:text-lg text-slate-600 leading-relaxed">
                     {children}
 
-                    <div className={`${reverseLayout ? 'border-r-4 rounded-l-xl text-right' : 'border-l-4 rounded-r-xl'} bg-blue-50 border-blue-500 p-6 mt-8`}>
-                        <p className="italic text-slate-700 font-medium">
+                    <div className={`${reverseLayout ? 'border-r-4 rounded-l-xl text-right' : 'border-l-4 rounded-r-xl'} bg-blue-50 border-blue-500 p-4 md:p-6 mt-6 md:mt-8`}>
+                        <p className="italic text-slate-700 font-medium text-sm md:text-base">
                             "{quote}"
                         </p>
                     </div>
@@ -72,11 +72,11 @@ const TutorSection = ({
 
 const AboutTutors = () => {
     return (
-        <section id="about" className="py-24 bg-white relative overflow-hidden border-t border-blue-50">
+        <section id="about" className="py-12 md:py-24 bg-white relative overflow-hidden border-t border-blue-50">
             {/* Decorative background elements */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-50/50 skew-x-12 transform origin-top-right z-0"></div>
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 space-y-32">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10 space-y-16 md:space-y-32">
                 <TutorSection
                     name="Ms. Ritika Srivastava"
                     role="Tutor & Founder"
