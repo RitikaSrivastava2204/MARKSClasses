@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 import { Award, Target, BookOpenCheck, GraduationCap } from 'lucide-react';
+import tutorPhoto1 from '../assets/tutor-photo.jpg';
+import tutorPhoto2 from '../assets/tutor2-photo.jpg';
+import tutorPhoto3 from '../assets/tutor3-photo.png';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -86,7 +89,7 @@ const AboutTutors = () => {
                 <TutorSection
                     name="Ms. Ritika Srivastava"
                     role="Tutor & Founder"
-                    image="src/assets/tutor-photo.jpg"
+                    image={tutorPhoto1}
                     imageAlt="Ritika - Tutor at MARKS Classes"
                     badgeText="Proven Results"
                     badgeIcon={Award}
@@ -106,7 +109,7 @@ const AboutTutors = () => {
                 <TutorSection
                     name="Mr. Manoj Srivastava"
                     role="Senior Tutor & Founder"
-                    image="src/assets/tutor2-photo.jpg"
+                    image={tutorPhoto2}
                     imageAlt="Father - Tutor at MARKS Classes"
                     badgeText="Expert Guidance"
                     badgeIcon={Target}
@@ -127,7 +130,7 @@ const AboutTutors = () => {
                 <TutorSection
                     name="Mrs. Archana Srivastava"
                     role="Tutor - Early Years & Managing Director"
-                    image="src/assets/tutor3-photo.png"
+                    image={tutorPhoto3}
                     imageAlt="Mother - Tutor at MARKS Classes"
                     badgeText="Holistic Growth"
                     badgeIcon={GraduationCap}
