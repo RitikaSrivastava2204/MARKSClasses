@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Hero from './components/Hero';
 import VideoGallery from './components/VideoGallery';
 import ClassesOfferings from './components/ClassesOfferings';
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-blue-500/30 selection:text-blue-900">
+      <Toaster position="top-center" />
 
       {/* Top Banner (Optional, for urgency) */}
       <div className="bg-blue-900 text-white text-center py-2 text-xs sm:text-sm font-medium tracking-wide border-b border-blue-800">

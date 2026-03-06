@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 @theme {
     --color-dark-bg: #0f172a;
     --color-dark-card: #1e293b;

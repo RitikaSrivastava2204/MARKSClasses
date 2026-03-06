@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Zap, Clock, BookOpenCheck, CalendarCheck, PhoneCall } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PayPerClass = () => {
+    const container = useRef();
+
+    useGSAP(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: "top 75%",
+            }
+        });
+
+        tl.from(".pay-text", {
+            x: -40,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out"
+        }).from(".pay-visual", {
+            x: 40,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out"
+        }, "-=0.6");
+    }, { scope: container });
+
     return (
-        <section className="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-950">
+        <section ref={container} className="py-10 md:py-16 relative overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-950">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500 rounded-full blur-[120px] opacity-20"></div>
@@ -11,10 +39,10 @@ const PayPerClass = () => {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                     {/* Text Content */}
-                    <div className="text-white space-y-6 md:space-y-8">
+                    <div className="pay-text text-white space-y-5 md:space-y-6">
                         <div className="inline-flex items-center space-x-2 bg-indigo-800/50 backdrop-blur-md px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-indigo-500/30 text-indigo-200 font-bold text-xs md:text-sm tracking-wide shadow-sm">
                             <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 text-yellow-400" />
                             <span>PAY AS YOU GO MODEL</span>
@@ -43,10 +71,10 @@ const PayPerClass = () => {
                     </div>
 
                     {/* Visual / Feature Box */}
-                    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-8 rounded-3xl shadow-2xl relative">
+                    <div className="pay-visual bg-white/10 backdrop-blur-xl border border-white/20 p-5 md:p-6 rounded-3xl shadow-2xl relative">
                         <div className="absolute -top-6 -right-6 w-24 h-24 bg-yellow-400 rounded-full blur-2xl opacity-50"></div>
 
-                        <div className="space-y-5 md:space-y-6 relative z-10">
+                        <div className="space-y-4 md:space-y-5 relative z-10">
                             <div className="flex items-start gap-3 md:gap-4">
                                 <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0 border border-blue-400/30">
                                     <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-300" />

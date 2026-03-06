@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { GraduationCap, Star, PhoneCall, Sparkles } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const Hero = () => {
+    const container = useRef();
+
+    useGSAP(() => {
+        gsap.from(".hero-content", {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            delay: 0.2
+        });
+    }, { scope: container });
+
     return (
-        <section className="relative w-full min-h-[70vh] md:min-h-[85vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-sky-100 text-slate-800 px-4 md:px-6 py-12 md:py-24">
+        <section ref={container} className="relative w-full min-h-[60vh] md:min-h-[75vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-sky-100 text-slate-800 px-4 md:px-6 py-10 md:py-16">
 
             {/* Subtle Background Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50"></div>
@@ -12,10 +26,10 @@ const Hero = () => {
             <div className="absolute top-20 left-10 md:left-32 w-32 md:w-48 h-32 md:h-48 bg-yellow-200 rounded-full mix-blend-multiply filter blur[-60px] opacity-40 animate-pulse"></div>
             <div className="absolute bottom-20 right-10 md:right-32 w-40 md:w-64 h-40 md:h-64 bg-sky-300 rounded-full mix-blend-multiply filter blur[-80px] opacity-30"></div>
 
-            <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center">
+            <div className="hero-content relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center">
 
                 {/* Banner: Hybrid Mode */}
-                <div className="inline-flex items-center px-4 md:px-6 py-1.5 md:py-2 border-2 border-blue-200 rounded-full bg-white text-blue-800 text-xs sm:text-sm md:text-base font-bold mb-6 md:mb-8 shadow-sm transform -rotate-1 hover:rotate-0 transition-transform cursor-default">
+                <div className="inline-flex items-center px-4 md:px-6 py-1.5 md:py-2 border-2 border-blue-200 rounded-full bg-white text-blue-800 text-xs sm:text-sm md:text-base font-bold mb-4 md:mb-6 shadow-sm transform -rotate-1 hover:rotate-0 transition-transform cursor-default">
                     <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1.5 md:mr-2 text-yellow-500" />
                     HYBRID MODE (ONLINE + OFFLINE)
                 </div>
@@ -31,7 +45,7 @@ const Hero = () => {
                 </div>
 
                 {/* Sub-headline */}
-                <div className="flex items-center justify-center gap-2 md:gap-3 mb-8 md:mb-12">
+                <div className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8">
                     <Star className="w-5 h-5 md:w-6 md:h-6 text-yellow-500 fill-yellow-500" />
                     <h2 className="text-lg sm:text-xl md:text-4xl italic font-semibold text-blue-600">
                         Learn Smart. Score High.
@@ -40,7 +54,7 @@ const Hero = () => {
                 </div>
 
                 {/* Banner: New Session */}
-                <div className="inline-block px-5 md:px-8 py-2.5 md:py-3 bg-red-600 text-white font-bold tracking-widest text-sm sm:text-base md:text-xl rounded-md shadow-lg mb-8 md:mb-10 border border-red-500 transform rotate-1">
+                <div className="inline-block px-5 md:px-8 py-2 md:py-2.5 bg-red-600 text-white font-bold tracking-widest text-sm sm:text-base md:text-xl rounded-md shadow-lg mb-6 md:mb-8 border border-red-500 transform rotate-1">
                     ♦ NEW SESSION STARTING 1ST MARCH 2026 ♦
                 </div>
 

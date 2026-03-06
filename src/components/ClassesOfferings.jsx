@@ -1,80 +1,92 @@
-import React from 'react';
-import { BookOpen, Calculator, FlaskConical, Monitor, Globe, FileText, CheckCircle2 } from 'lucide-react';
+import React, { useRef } from 'react';
+import { BookOpen, Calculator, FlaskConical, Monitor, Globe, FileText, Sparkles, ChevronRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ClassesOfferings = () => {
+    const container = useRef();
+
+    useGSAP(() => {
+        gsap.from(".classes-card", {
+            scrollTrigger: {
+                trigger: container.current,
+                start: "top 80%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+    }, { scope: container });
+
     return (
-        <section id="classes" className="py-12 md:py-20 bg-blue-50 relative overflow-hidden">
+        <section ref={container} id="classes" className="py-8 md:py-12 bg-white relative overflow-hidden border-b border-slate-100">
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
+                <div className="classes-card flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8 bg-blue-50/50 border border-blue-100/50 rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
 
-                {/* Header */}
-                <div className="text-center mb-10 md:mb-16">
-                    <div className="flex items-center justify-center space-x-3 md:space-x-4 mb-4">
-                        <div className="h-[2px] w-10 sm:w-16 md:w-32 bg-blue-300"></div>
-                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-blue-900 tracking-tight">
-                            CLASSES: <span className="text-blue-700">1st to 10th</span>
+                    {/* Header Area */}
+                    <div className="flex flex-col items-center lg:items-start text-center lg:text-left flex-shrink-0">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+                            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                            <span>Curriculum</span>
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight flex items-center gap-2">
+                            CLASSES <span className="text-blue-600">1st to 10th</span>
                         </h2>
-                        <div className="h-[2px] w-10 sm:w-16 md:w-32 bg-blue-300"></div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16">
-
-                    {/* Card: 1st - 5th */}
-                    <div className="bg-white rounded-3xl p-6 md:p-8 lg:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-blue-100 hover:shadow-[0_10px_40px_rgba(59,130,246,0.15)] transition-shadow duration-300 relative group">
-                        <div className="absolute top-0 left-6 md:left-8 px-4 md:px-6 py-1.5 md:py-2 bg-gradient-to-r from-sky-400 to-blue-500 rounded-b-xl text-white font-bold text-lg md:text-xl shadow-md transform -translate-y-px">
-                            1st – 5th
-                        </div>
-
-                        <div className="mt-10 flex flex-col items-center justify-center h-full min-h-[180px] md:min-h-[200px] text-center">
-                            <div className="w-20 h-20 md:w-24 md:h-24 bg-sky-100 rounded-full flex items-center justify-center mb-5 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <BookOpen className="w-10 h-10 md:w-12 md:h-12 text-sky-500" />
-                            </div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-slate-800 flex items-center gap-2 md:gap-3">
-                                <span className="text-sky-500">▶</span> All Subjects
-                            </h3>
-                            <p className="text-slate-500 mt-3 md:mt-4 max-w-sm text-sm md:text-base">
-                                A complete foundational syllabus focusing on overall clear conceptual understanding.
-                            </p>
-                        </div>
+                        <a href="#contact" className="hidden lg:inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 mt-2 hover:underline group">
+                            Book a free trial <ChevronRight className="w-4 h-4 ml-0.5 group-hover:translate-x-1 transition-transform" />
+                        </a>
                     </div>
 
-                    {/* Card: 6th - 10th */}
-                    <div className="bg-white rounded-3xl p-6 md:p-8 lg:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] border border-blue-100 hover:shadow-[0_10px_40px_rgba(59,130,246,0.15)] transition-shadow duration-300 relative">
-                        <div className="absolute top-0 left-6 md:left-8 px-4 md:px-6 py-1.5 md:py-2 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-b-xl text-white font-bold text-lg md:text-xl shadow-md transform -translate-y-px">
-                            6th – 10th
+                    {/* Vertical Divider (Desktop only) */}
+                    <div className="hidden lg:block w-px h-16 bg-slate-200 mx-4"></div>
+
+                    {/* Horizontal Divider (Mobile only) */}
+                    <div className="w-16 h-1 bg-blue-200 rounded-full lg:hidden block"></div>
+
+                    {/* Subjects Area (Scrolling pills or wrapping grid) */}
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4 w-full">
+
+                        {/* Junior Pillar */}
+                        <div className="flex items-center gap-2 bg-gradient-to-r from-sky-400 to-blue-500 text-white px-4 py-2.5 rounded-full font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all text-sm md:text-base border border-blue-400">
+                            <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-white/90" />
+                            <span>1st–5th (All Subjects)</span>
                         </div>
 
-                        <div className="mt-10">
-                            <ul className="space-y-3 md:space-y-4">
-                                <li className="flex items-center text-base md:text-xl font-semibold text-slate-700 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 hover:bg-blue-50 transition-colors">
-                                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-3 md:mr-4 flex-shrink-0" />
-                                    <Calculator className="w-4 h-4 md:w-5 md:h-5 text-slate-400 mr-2 md:mr-3" />
-                                    Mathematics
-                                </li>
-                                <li className="flex items-center text-base md:text-xl font-semibold text-slate-700 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 hover:bg-blue-50 transition-colors">
-                                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-3 md:mr-4 flex-shrink-0" />
-                                    <FlaskConical className="w-4 h-4 md:w-5 md:h-5 text-slate-400 mr-2 md:mr-3" />
-                                    Science
-                                </li>
-                                <li className="flex items-center text-base md:text-xl font-semibold text-slate-700 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 hover:bg-blue-50 transition-colors">
-                                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-3 md:mr-4 flex-shrink-0" />
-                                    <Monitor className="w-4 h-4 md:w-5 md:h-5 text-slate-400 mr-2 md:mr-3" />
-                                    Computer
-                                </li>
-                                <li className="flex items-center text-base md:text-xl font-semibold text-slate-700 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 hover:bg-blue-50 transition-colors">
-                                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-3 md:mr-4 flex-shrink-0" />
-                                    <Globe className="w-4 h-4 md:w-5 md:h-5 text-slate-400 mr-2 md:mr-3" />
-                                    IT & AI
-                                </li>
-                                <li className="flex items-center text-base md:text-xl font-semibold text-slate-700 bg-slate-50 p-3 md:p-4 rounded-xl border border-slate-100 hover:bg-blue-50 transition-colors">
-                                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-blue-600 mr-3 md:mr-4 flex-shrink-0" />
-                                    <FileText className="w-4 h-4 md:w-5 md:h-5 text-slate-400 mr-2 md:mr-3" />
-                                    English & Hindi
-                                </li>
-                            </ul>
+                        {/* Senior Subjects */}
+                        <div className="flex items-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-indigo-50 hover:text-indigo-700 hover:-translate-y-0.5 border border-slate-200 transition-all text-sm md:text-base cursor-default group">
+                            <Calculator className="w-4 h-4 md:w-5 md:h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                            <span>Mathematics</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-emerald-50 hover:text-emerald-700 hover:-translate-y-0.5 border border-slate-200 transition-all text-sm md:text-base cursor-default group">
+                            <FlaskConical className="w-4 h-4 md:w-5 md:h-5 text-emerald-500 group-hover:scale-110 transition-transform" />
+                            <span>Science</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-blue-50 hover:text-blue-700 hover:-translate-y-0.5 border border-slate-200 transition-all text-sm md:text-base cursor-default group">
+                            <Monitor className="w-4 h-4 md:w-5 md:h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+                            <span>Computer</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-purple-50 hover:text-purple-700 hover:-translate-y-0.5 border border-slate-200 transition-all text-sm md:text-base cursor-default group">
+                            <Globe className="w-4 h-4 md:w-5 md:h-5 text-purple-500 group-hover:scale-110 transition-transform" />
+                            <span>IT & AI</span>
+                        </div>
+
+                        <div className="flex items-center gap-2 bg-white text-slate-700 px-4 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md hover:bg-rose-50 hover:text-rose-700 hover:-translate-y-0.5 border border-slate-200 transition-all text-sm md:text-base cursor-default group">
+                            <FileText className="w-4 h-4 md:w-5 md:h-5 text-rose-500 group-hover:scale-110 transition-transform" />
+                            <span>English & Hindi</span>
                         </div>
                     </div>
 
+                    {/* Mobile Only CTA */}
+                    <a href="#contact" className="lg:hidden mt-2 inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-800 bg-blue-100 rounded-full px-4 py-1.5 transition-colors">
+                        Book a free trial <ChevronRight className="w-4 h-4 ml-0.5" />
+                    </a>
                 </div>
             </div>
         </section>

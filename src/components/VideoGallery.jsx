@@ -112,7 +112,7 @@ const VideoGallery = () => {
     const duplicatedVideos = [...videos, ...videos, ...videos, ...videos];
 
     return (
-        <section className="py-6 md:py-8 overflow-hidden relative w-full">
+        <section className="py-4 md:py-6 overflow-hidden relative w-full">
 
             {/* Render the container as user-scrollable but hide the scrollbar */}
             <div

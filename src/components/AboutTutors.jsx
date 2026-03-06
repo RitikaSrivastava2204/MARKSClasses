@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Award, Target, BookOpenCheck, GraduationCap } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TutorSection = ({
     name,
@@ -15,12 +20,13 @@ const TutorSection = ({
     quote,
     reverseLayout = false
 }) => {
+    const container = useRef(null);
     return (
-        <div className={`flex flex-col ${reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 lg:gap-16 items-center`}>
+        <div ref={container} className={`tutor-section flex flex-col ${reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-6 lg:gap-12 items-center`}>
             {/* Image/Visual Column */}
             <div className="w-full lg:w-5/12 relative">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-sky-200 to-yellow-200 rounded-3xl blur-lg opacity-40"></div>
-                <div className="relative bg-white p-1.5 md:p-2 rounded-2xl shadow-xl border border-blue-100">
+                <div className="relative bg-white p-1 md:p-1.5 rounded-2xl shadow-xl border border-blue-100 max-w-sm mx-auto">
                     <div className="aspect-[4/5] bg-slate-100 rounded-xl overflow-hidden relative group shadow-inner">
                         <img
                             src={image}
@@ -43,13 +49,13 @@ const TutorSection = ({
             </div>
 
             {/* Content Column */}
-            <div className="w-full lg:w-7/12">
-                <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-blue-50 border border-blue-100 rounded-full text-blue-600 font-bold text-xs md:text-sm tracking-wide uppercase mb-4 md:mb-6 flex-wrap">
+            <div className="w-full lg:w-7/12 mt-4 lg:mt-0">
+                <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1 md:py-1.5 bg-blue-50 border border-blue-100 rounded-full text-blue-600 font-bold text-xs md:text-sm tracking-wide uppercase mb-3 md:mb-4 flex-wrap">
                     <BookOpenCheck className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     Meet {name} <span className="text-blue-400 mx-0.5 md:mx-1">•</span> <span className="text-slate-600 font-medium capitalize">{role}</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-800 mb-5 md:mb-8 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-4 md:mb-6 leading-tight">
                     {titlePrefix} <span className="text-blue-600 relative inline-block">
                         {titleHighlight}
                         <span className="absolute bottom-1 md:bottom-2 left-0 w-full h-2 md:h-3 bg-yellow-200 -z-10 rounded-full"></span>
@@ -59,7 +65,7 @@ const TutorSection = ({
                 <div className="space-y-4 md:space-y-6 text-base md:text-lg text-slate-600 leading-relaxed">
                     {children}
 
-                    <div className={`${reverseLayout ? 'border-r-4 rounded-l-xl text-right' : 'border-l-4 rounded-r-xl'} bg-blue-50 border-blue-500 p-4 md:p-6 mt-6 md:mt-8`}>
+                    <div className={`${reverseLayout ? 'border-r-4 rounded-l-xl text-right' : 'border-l-4 rounded-r-xl'} bg-blue-50 border-blue-500 p-3 md:p-5 mt-4 md:mt-6`}>
                         <p className="italic text-slate-700 font-medium text-sm md:text-base">
                             "{quote}"
                         </p>
@@ -72,11 +78,11 @@ const TutorSection = ({
 
 const AboutTutors = () => {
     return (
-        <section id="about" className="py-12 md:py-24 bg-white relative overflow-hidden border-t border-blue-50">
+        <section id="about" className="py-10 md:py-16 bg-white relative overflow-hidden border-t border-blue-50">
             {/* Decorative background elements */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-50/50 skew-x-12 transform origin-top-right z-0"></div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10 space-y-16 md:space-y-32">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10 space-y-12 md:space-y-20">
                 <TutorSection
                     name="Ms. Ritika Srivastava"
                     role="Tutor & Founder"
