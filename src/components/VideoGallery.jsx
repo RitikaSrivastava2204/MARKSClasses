@@ -7,8 +7,9 @@ import { PlayCircle, Youtube, Loader2, AlertCircle } from 'lucide-react';
 // or by looking at the URL if it's in the format youtube.com/channel/UC......
 const YOUTUBE_CHANNEL_ID = 'UC63n-Xu0IIZ8OvF2aC3QhOw'; // Placeholder: freeCodeCamp channel ID
 
-// We use rss2json to convert the public YouTube XML RSS feed into a readable JSON structure without needing a Google API Key
-const RSS_TO_JSON_API = `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fchannel_id%3D${YOUTUBE_CHANNEL_ID}`;
+// We use a CORS proxy to fetch the public YouTube XML RSS feed and parse it locally
+const YOUTUBE_RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+const CORS_PROXY_API = `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(YOUTUBE_RSS_URL)}`;
 
 const VideoCard = ({ video }) => (
     <a
@@ -62,15 +63,30 @@ const VideoGallery = () => {
         const fetchVideos = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(RSS_TO_JSON_API);
-                const data = await response.json();
+                const response = await fetch(CORS_PROXY_API);
+                const data = await response.text();
 
-                if (data.status === 'ok') {
-                    // Ensure we get exactly 10 or up to 10 items
-                    const fetchedVids = data.items.slice(0, 10);
+                if (response.ok && data) {
+                    const parser = new DOMParser();
+                    const xml = parser.parseFromString(data, 'text/xml');
+                    const entries = Array.from(xml.querySelectorAll('entry')).slice(0, 10);
+
+                    const fetchedVids = entries.map(entry => {
+                        const videoId = entry.querySelector('videoId')?.textContent || '';
+                        const mediaThumbnail = entry.getElementsByTagName('media:thumbnail')[0];
+
+                        return {
+                            guid: entry.querySelector('id')?.textContent || videoId,
+                            title: entry.querySelector('title')?.textContent || 'Untitled Video',
+                            link: entry.querySelector('link')?.getAttribute('href') || '#',
+                            author: entry.querySelector('author name')?.textContent || 'MARKS Classes',
+                            thumbnail: mediaThumbnail?.getAttribute('url') || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
+                        };
+                    });
+
                     setVideos(fetchedVids);
                 } else {
-                    throw new Error(data.message || 'Could not fetch videos from feed.');
+                    throw new Error('Could not fetch videos from feed.');
                 }
             } catch (err) {
                 console.error('Error fetching YouTube RSS:', err);
@@ -132,7 +148,7 @@ const VideoGallery = () => {
                 ) : error ? (
                     <div className="flex items-center justify-center w-full min-h-[9.5rem] md:min-h-[11rem] text-rose-500 absolute inset-0 z-20 bg-transparent rounded-lg mx-auto max-w-lg">
                         <AlertCircle className="w-5 h-5 mr-2" />
-                        <span className="font-medium text-sm">Please update your YouTube Channel ID in the code to display videos here.</span>
+                        <span className="font-medium text-sm">Failed to load videos. Please try again later.</span>
                     </div>
                 ) : videos.length === 0 ? (
                     <div className="flex items-center justify-center w-full min-h-[9.5rem] md:min-h-[11rem] text-slate-500 absolute inset-0 z-20 bg-transparent">
